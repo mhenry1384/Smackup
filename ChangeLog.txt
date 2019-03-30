@@ -1,0 +1,21 @@
+0.0.0-0.0.8 - Initial release(s).
+0.0.9 - Added recreateNetworkShare() function.
+0.0.10 - Moved main functionality into a "main" function.  Added command line parameters.  Log to files using command-line parameters instead of configuration file entries.  If you can't backup a file, copy the file from the Archive to the Current.  If you log to a file, also print to stdout.  Add option to close Outlook.  Verify Function.  Print the list of the files we were unable to copy.  If a number of duplicates are deleted, only Archive the first one.
+0.0.11 - Made the usage message easier to understand.
+0.0.12 - Closing outlook should work with windows executable version of Smackup.  If a backup fails, the file is moved from the Archive to Current instead of being copied.  Improved usage message. Version number was being printed twice if there was logging.
+0.0.13 - Closing Outlook is now a command line option (-o).  Prints a nice error message if you attempt to close Outlook and Outlook is not installed.  If you log to a file, prints a separator line after every log entry now. Wait up to 5 minutes for Outlook to close.  Closing Outlook now works from the Smackup.exe for sure.
+0.0.14 - Minor tweaks to instructions, usage.  The verify option is now "-c" for compare instead of -v.  Added verbose (-v) option in which smackup describes what it did to all the files.
+0.0.15 - Fixed "desc" that was being printed out.  Verbose mode filespecs are now sorted.  Don't print the label "List of File Actions" if there are none. Added -e (never, onError, always) to specify when to press enter. -n operation to override the destination directory.  -c now has two modes: fast and paranoid; paranoid does a full file compare.  Raise an exception if the source directory does not exist or is a disconnected network drive.  Always raise real exception objects instead of strings.  Added reconnectNetworkDriveWithPassword() function for the config file if you have a network drive that won't reconnect with out a password.  All other network drives now automatically reconnect.
+0.0.16 - Added NetworkDrive.py to the package; forgot it the first time.
+0.0.17 - Fixed usage: -c explanation was gettng printed twice.
+0.0.18 - If you are running the Python script and don't have ctypes installed, a helpful error message is printed.  A little more robust in handling errors with files missing because Smackup already ran.
+0.0.19 - Archive file even if read-only. reconnectNetworkDrive() no longer requires c-types.  reconnectNetworkDriveWithPassword() was removed; use reconnectNetworkDrive().
+0.0.20 - Try II.
+0.0.21 - Smackup now supports UNC names!  Fixed bugs in reconnectNetworkDrive().
+0.0.22 - Support forward-slashed UNC names.
+0.0.23 - Fixed bugs in the network drive remapping code when dealing with drives that require usernames/passwords.  Code passes the unit tests again.
+0.0.24 - WNetAddConnection2() now reconnects at login.
+1.0.0 - The same as 0.0.24, but renamed it 1.0 because it's been stable for a long time.
+new
+1.1.0 - Don't read or write the backup pickle. added "-i" option for information only, it writes what it would do but performs no file operations.   The modified time seems unreliable: the OS seems to mark files as being modified when they have not been, sometimes.  Until I figure out what is going on, Smackup will use only the filename and filesize to determine what to backup.  If something on the exclusion list doesn't start with *, then * is prefixed to it (before it would only match if a filespec started with that text).  Case is now ignored when determining if files need to be moved, backed up or archived.  If a file and all its duplicates are deleted, its duplicates are now archived.  Command-line parsing is now done using optparse instead of getopt.  Forward and backward slashes can be used interchangeably in exclusion lists.  Just report the number of files found in the source and destination, don't split it out by unique and duplicates.
+1.1.1 - If any of the source directories is a drive letter then make sure it ends with a backslash.  Gracefully log a message if unable to move a duplicate instead of throwing an exception. Fixed move function so that if copies of files are in the destination but not the source, then archive them, don't just delete them.  Fixed the usage formatting in the help file.
